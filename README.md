@@ -1,12 +1,22 @@
+<div align="center">
+  <img src="assets/plato-logo-brass-transparent.png" alt="Plato logo" width="200">
+</div>
+
 # Plato
 
 *Built for engineers who get tickets, not greenfield projects.*
 
+> **⚠️ Warning: if you are not a professional engineer, Plato is not for
+> you.** It assumes you're a software engineer with years of hands-on
+> experience, comfortable with Jira, Scrum, git, and professional software
+> project workflows in general. If that's not you, look at fully-automated
+> tools like Superpowers or GSD instead.
+
 Plato is an AI coding methodology framework for Claude Code. It is designed
-around how real engineers on real teams actually work: you get a ticket —
-"add VIP badge to dashboard," "fix null pointer in checkout" — not an
-open-ended mandate to build something from scratch. Plato organizes the
-whole lifecycle of that ticket, from requirement to reviewed diff, as a
+around how real engineers on real teams actually work: you get a ticket not an
+open-ended mandate to build something from scratch. 
+
+Plato organizes the whole lifecycle of that ticket, from requirement to reviewed diff, as a
 sequence of small, transparent, human-checkpointed AI sessions.
 
 ## Philosophy
