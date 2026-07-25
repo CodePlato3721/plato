@@ -18,8 +18,8 @@ Sets up the Plato framework files in this repo (`.plato/` and
 
 Reached when `/plato` is invoked with the argument `init`.
 
-1. Copy `skills/plato/templates/.plato` to `.plato` at the project root.
-2. Copy `skills/plato/templates/plato-workspace` to `plato-workspace` at the project root.
+1. Copy `templates/.plato` to `.plato` at the project root.
+2. Copy `templates/plato-workspace` to `plato-workspace` at the project root.
 3. Determine default test paths, then confirm them with the user:
    - If the project does **not** have separate frontend and backend roots (a
      single app, no sibling `backend/` and `frontend/` directories at the
@@ -107,12 +107,12 @@ Check whether `plato-workspace/tickets/<ticket-number>/status.json` exists.
 Ask the ticket type. Use `AskUserQuestion` with two options: `feature` and
 `defect`. Then:
 
-- `feature` → **Feature Creation Flow**: See `skills/plato/references/FEATURE_CREATION_FLOW.md`.
-- `defect` → **Defect Creation Flow**: See `skills/plato/references/DEFECT_CREATION_FLOW.md`.
+- `feature` → **Feature Creation Flow**: See `references/FEATURE_CREATION_FLOW.md`.
+- `defect` → **Defect Creation Flow**: See `references/DEFECT_CREATION_FLOW.md`.
 
 #### Step 3b — Existing: read ticket type, then continue
 
 Read the `type` field from `plato-workspace/tickets/<ticket-number>/status.json`. Then:
 
-- `feature` → **Feature Continue Flow**: See `skills/plato/references/FEATURE_CONTINUE_FLOW.md`.
-- `defect` → **Defect Continue Flow**: See `skills/plato/references/DEFECT_CONTINUE_FLOW.md`.
+- `feature` → **Feature Continue Flow**: See `references/FEATURE_CONTINUE_FLOW.md`.
+- `defect` → **Defect Continue Flow**: See `references/DEFECT_CONTINUE_FLOW.md`.

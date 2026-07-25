@@ -4,7 +4,7 @@ Reached when `status.json`'s `type` field is `defect`.
 
 ## Step 1 — Report current status
 
-Run `python skills/plato/scripts/status_report.py <ticket-number>` and show
+Run `python scripts/status_report.py <ticket-number>` and show
 its output to the user as-is. It reads
 `plato-workspace/tickets/<ticket-number>/status.json` and formats it as:
 
@@ -16,7 +16,7 @@ fixer: <role status>
 
 ## Step 2 — Find the active step
 
-Run `python skills/plato/scripts/find_active_step.py <ticket-number>`.
+Run `python scripts/find_active_step.py <ticket-number>`.
 It prints four lines:
 
 ```
@@ -30,7 +30,7 @@ If `role` is `none`, the ticket is fully complete — tell the user that and sto
 
 ## Step 3 — Generate the command
 
-Run `python skills/plato/scripts/generate_command.py <ticket-number> fixer <status> <session-id>`
+Run `python scripts/generate_command.py <ticket-number> fixer <status> <session-id>`
 using the values Step 2 reported. The script prints a single raw command line. Wrap it with the
 appropriate message before showing it to the user:
 

@@ -4,7 +4,7 @@ Reached when `status.json`'s `type` field is `feature`.
 
 ## Step 1 — Report current status
 
-Run `python skills/plato/scripts/status_report.py <ticket-number>` and show
+Run `python scripts/status_report.py <ticket-number>` and show
 its output to the user as-is. It reads
 `plato-workspace/tickets/<ticket-number>/status.json` and formats it as:
 
@@ -25,7 +25,7 @@ tasks:
 
 ## Step 2 — Find the active task
 
-Run `python skills/plato/scripts/find_active_step.py <ticket-number>`.
+Run `python scripts/find_active_step.py <ticket-number>`.
 It prints four lines:
 
 ```
@@ -39,7 +39,7 @@ If `role` is `none`, the ticket is fully complete — tell the user that and sto
 
 ## Step 3 — Generate the command
 
-Run `python skills/plato/scripts/generate_command.py <ticket-number> <role> <status> <session-id> [task-id]`
+Run `python scripts/generate_command.py <ticket-number> <role> <status> <session-id> [task-id]`
 using the four values Step 2 reported (`task-id` only needed when `role` is
 `coder`). The script prints a single raw command line. Wrap it with the
 appropriate message before showing it to the user:

@@ -111,20 +111,17 @@ role.** You review and commit manually, always.
 
 ## Installation
 
-This repository *is* a Claude Code Skill named `plato`. Its own files
-reference themselves via `skills/plato/...` paths, so install it by placing
-this repo's contents at `skills/plato/` inside the project where you want
-to use it:
+This repository *is* a Claude Code Skill named `plato`. Install it with the
+[skills CLI](https://github.com/anthropics/skills):
 
 ```
-your-project/
-└── skills/
-    └── plato/          ← this repo
-        ├── SKILL.md
-        ├── references/
-        ├── scripts/
-        └── templates/
+npx skills@latest add CodePlato3721/plato -y -g
 ```
+
+This fetches the skill into your global skills directory, making `/plato`
+available in Claude Code. All of `SKILL.md`'s own paths (`references/`,
+`scripts/`, `templates/`) are relative to the skill's own directory, so it
+works the same wherever the skills CLI installs it.
 
 ## Usage
 
