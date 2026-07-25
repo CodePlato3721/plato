@@ -1,0 +1,18 @@
+{
+    "type": "",
+    "title": "",
+    "unit-test-path": "",
+    "e2e-test-path": "",
+    "designer": {
+        "session-id": "",
+        "status": "TODO"
+    },
+    "planner": {
+        "session-id": "",
+        "status": "TODO"
+    },
+    "coder": {
+        "status": "TODO",
+        "tasks": []
+    } 
+}
