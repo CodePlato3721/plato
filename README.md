@@ -132,3 +132,8 @@ That starts your first ticket.
 
 Before you use Plato for real, you **must** read the [tutorial](tutorial/01-begin.md).
 
+> **😱 You might be worried the tutorial will be long and boring.** I can
+> promise you it will be — **long and boring** , exactly like a Defense
+> Against the Dark Arts class🪄. If you're not a real software engineer, or don't have
+> the patience of one, this framework genuinely isn't for you.
+
