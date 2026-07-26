@@ -19,6 +19,35 @@ open-ended mandate to build something from scratch.
 Plato organizes the whole lifecycle of that ticket, from requirement to reviewed diff, as a
 sequence of small, transparent, human-checkpointed AI sessions.
 
+## Why Plato
+
+AI coding today has four recurring problems:
+
+1. **Your attention breaks down.** Watching an agent write code makes you
+   doze off; run several tasks at once and switch between them, and you
+   forget what you were doing by the time you switch back.
+2. **The project becomes uncontrollable.** It's like a car accelerating with
+   no one on the wheel — by the time you notice it's off course, it's
+   already gone too far to easily correct.
+3. **Nothing is learned.** The rules that should govern how you and the AI
+   work together never accumulate anywhere, so the AI keeps making the same
+   mistakes.
+4. **There's no best practice.** This is the one that matters most: engineers
+   on a real project team find that none of the tools on the market actually
+   fit enterprise-grade development — there's no established best practice
+   to follow.
+
+<div align="center">
+  <img src="assets/plato-agent-problems-four-panel.png" alt="Four problems with AI coding" width="320">
+</div>
+
+A handful of simple, repeated actions resolve all four problems. Once
+Plato is part of your routine, your day-to-day be like:
+
+<div align="center">
+  <img src="assets/plato-working-be-like.png" alt="Plato working be like" width="320">
+</div>
+
 ## Philosophy
 
 ### Framework, not platform
@@ -91,4 +120,15 @@ npx skills@latest add CodePlato3721/plato -y -g
 
 This fetches the skill into your global skills directory, making `/plato`
 available in Claude Code.
+
+## Quick Start
+
+```
+/plato init
+/plato HELLO-0001
+```
+
+That starts your first ticket.
+
+Before you use Plato for real, you **must** read the [tutorial](tutorial/01-begin.md).
 
