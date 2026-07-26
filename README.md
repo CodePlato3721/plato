@@ -55,6 +55,10 @@ tailored specifically to it.
 
 ### Loose, Transparent, and Honest
 
+<div align="center">
+  <img src="assets/plato-robot-driving-human-guiding-clean.png" alt="Loose, Transparent, and Honest" width="320">
+</div>
+
 We're software engineers. We like transparency, because we need our
 projects to stay controllable. Every checkpoint in Plato's workflow can be
 edited by hand, restarted, or redesigned at any time — you can change
@@ -64,6 +68,10 @@ reviewing, and deciding. The cost is that Plato isn't one-click — it takes
 some learning to use well.
 
 ### Slow down
+
+<div align="center">
+  <img src="assets/plato-slow-down-two-cars.png" alt="Slow down" width="320">
+</div>
 
 Working with Plato will feel slow — much slower than the one-click
 frameworks out there. That's because every step requires you to step in.
