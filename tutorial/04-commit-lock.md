@@ -38,7 +38,7 @@ one isn't repeated separately under each role below.
 ### designer
 
 **approve**: moves everything in **Backlogs** to
-`plato-workspace/project-context/BACKLOGS.md`, and moves everything in
+`plato-workspace/backlogs/<ticket-number>.md`, and moves everything in
 **New Rules** into `plato-workspace/role-rules/designer/<file>`.
 
 ### planner

@@ -71,25 +71,26 @@ Example:
 
 ### Step 3: Generate TR
 
-Write TR's content, following the structure in `TASKS_REQUEST.md`, to disk at `plato-workspace/tickets/<ticket-number>/.tr.md` (create it, or overwrite if it already exists) — this must be a real file on disk, not just text in your reply. Read the file back to confirm it was actually written before moving on.
-
-After writing the file, **do not commit**. Echo the same content back to the user, verbatim, and wait for a reply.
-
-The user may keep asking questions or modify tasks.json directly until satisfied. If tasks.json changes, rewrite `.tr.md` to match (same as above, including the read-back check) and echo again. Repeat until the user replies `approve` or `reject`.
+Write TR's content, following the structure in `TASKS_REQUEST.md`, to disk at `plato-workspace/tickets/<ticket-number>/.tr.md` (create it, or overwrite if it already exists) — this must be a real file on disk, not just text in your reply. Read the file back to confirm it was actually written before moving on. **Do not commit.**
 
 ### Step 4: Update Status
 
 Run `python .plato/scripts/status_cli.py planner wait <ticket-number>`
+
+### Step 5: Review via Q&A
+
+Let the user review the task split by asking you questions about it; answer each question, fully and accurately, referring back to `tasks.json` and `DESIGN.md`. The user may also modify `tasks.json` directly. If `tasks.json` changes, rewrite `.tr.md` to match (same as Step 3, including the read-back check). Keep going until the user is done and ready to reply with approve/reject/etc.
 
 ## TR Reply Handling
 
 After TR is created, wait for the user's reply and act as follows:
 
 - **approve**:
-  1. For each `<rule file>: <rule text>` line in the **New Rules** section of TR, append `<rule text>` to `plato-workspace/role-rules/planner/<rule file>` (create the file if it does not exist)
-  2. Delete TR
-  3. Run `python .plato/scripts/status_cli.py planner approve <ticket-number>`. This command is the ONLY status.json change in this step — as stated at the top of this file, `coder.tasks` must NOT be touched.
-  4. Tell the user: "Done. Use `/exit` to leave this session, then run `/plato <ticket-number>` to continue to the next step. **The framework does not commit or push — remember to do it manually.**"
+  1. Check whether the user asked at least 3 questions about `tasks.json` during **Step 5: Review via Q&A** in this session. If fewer than 3 questions were asked, **block**: tell the user they must ask at least 3 questions about the task split before it can be approved, and stop here.
+  2. For each `<rule file>: <rule text>` line in the **New Rules** section of TR, append `<rule text>` to `plato-workspace/role-rules/planner/<rule file>` (create the file if it does not exist)
+  3. Delete TR
+  4. Run `python .plato/scripts/status_cli.py planner approve <ticket-number>`. This command is the ONLY status.json change in this step — as stated at the top of this file, `coder.tasks` must NOT be touched.
+  5. Tell the user: "Done. Use `/exit` to leave this session, then run `/plato <ticket-number>` to continue to the next step. **The framework does not commit or push — remember to do it manually.**"
 
 - **reject**:
   1. Delete tasks.json

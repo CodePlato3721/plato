@@ -16,7 +16,7 @@ Work through the following steps in order. Do not skip steps.
 - **status.json**: Ticket status, path: `plato-workspace/tickets/<ticket-number>/status.json`
 - **DESIGN.md**: Design document, path: `plato-workspace/tickets/<ticket-number>/DESIGN.md`
 - **REQUIREMENT.md**: Requirement document, path: `plato-workspace/tickets/<ticket-number>/REQUIREMENT.md`
-- **BACKLOGS.md**: Project-level backlog list, path: `plato-workspace/project-context/BACKLOGS.md`
+- **backlogs/**: Project-level backlog folder, path: `plato-workspace/backlogs/`
 
 All terms below refer to the paths defined above and will not be repeated in full.
 
@@ -97,7 +97,7 @@ After DR is created, wait for the user's reply and act as follows:
      - **Solved**: remove the question from Opening Questions and write the solution into DESIGN.md
      - **Cannot / will not be solved now**: move the question into the **Backlogs** section, as reference information for future tickets
      After each change, rewrite `.dr.md` to disk (same as Step 4, including the read-back check) and echo it again.
-  2. Append every entry in the **Backlogs** section of DR to BACKLOGS.md (create the file if it does not exist)
+  2. Append every entry in the **Backlogs** section of DR to `plato-workspace/backlogs/<ticket-number>.md` (create the file if it does not exist)
   3. For each `<rule file>: <rule text>` line in the **New Rules** section of DR, append `<rule text>` to `plato-workspace/role-rules/designer/<rule file>` (create the file if it does not exist)
   4. Delete DR
   5. Run `python .plato/scripts/status_cli.py designer approve <ticket-number>`

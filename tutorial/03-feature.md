@@ -42,7 +42,7 @@ Question is cleared, reply `approve` to move on. Once you do, designer
 will:
 
 1. Move everything in **Backlogs** to
-   `plato-workspace/project-context/BACKLOGS.md`.
+   `plato-workspace/backlogs/<ticket-number>.md`.
 2. Move everything in **New Rules** to
    `plato-workspace/role-rules/designer/<file>`.
 3. Delete `.dr.md`.
