@@ -20,28 +20,47 @@ Reached when `/plato` is invoked with the argument `init`.
 
 1. Copy `templates/.plato` to `.plato` at the project root.
 2. Copy `templates/plato-workspace` to `plato-workspace` at the project root.
-3. Determine default test paths, then confirm them with the user:
+3. Determine the project's roots:
    - If the project does **not** have separate frontend and backend roots (a
      single app, no sibling `backend/` and `frontend/` directories at the
-     project root), the defaults are `tests/unit` and `tests/e2e`.
+     project root), there is a single root: the project root itself.
    - If the project **does** have separate frontend and backend roots (e.g.
-     `backend/` and `frontend/`), the defaults are `tests/unit` and
-     `tests/e2e` under those roots — e.g. `backend/tests/unit`. Inspect the
-     project structure to find the actual directories (look for
-     `tests/unit`, `test/unit`, `<root>/tests/unit`, etc., and `tests/e2e`,
-     `test/e2e`, `<root>/tests/e2e`, etc.) and use the first match for each;
-     if no match is found, fall back to `tests/unit` / `tests/e2e` under the
-     first detected root.
-   - Ask the user to confirm both paths using `AskUserQuestion`:
+     `backend/` and `frontend/`), there are two roots, named after those
+     directories.
+4. For **each** root from step 3, independently determine default test paths
+   and confirm them with the user:
+   - Search **only inside that root** (look for `tests/unit`, `test/unit`,
+     `<root>/tests/unit`, etc., and `tests/e2e`, `test/e2e`,
+     `<root>/tests/e2e`, etc.) for a unit-test default and an e2e-test
+     default. If no match is found under that root, fall back to
+     `tests/unit` / `tests/e2e` under that root. Never reuse a match found
+     under a different root.
+   - Ask the user to confirm both paths for this root using
+     `AskUserQuestion`:
      - Option A: the inferred default (label it as "Use default: <path>")
      - Option B: "Enter a custom path" (user types their own value)
-4. Write the confirmed paths to `plato-workspace/project-context/SETTINGS.md`,
-   creating the file if missing or updating these lines if they already
-   exist:
-   ```
-   - unit-test-path: <value>
-   - e2e-test-path: <value>
-   ```
+5. Write the confirmed paths to `plato-workspace/project-context/SETTINGS.md`,
+   creating the file if missing:
+   - **Single root**: write a flat pair, no header, updating these lines if
+     they already exist:
+     ```
+     - unit-test-path: <value>
+     - e2e-test-path: <value>
+     ```
+   - **Multiple roots**: write one `#`-headed section per root, named after
+     the root directory, updating each section's lines if it already
+     exists:
+     ```
+     # backend
+
+     - unit-test-path: <value>
+     - e2e-test-path: <value>
+
+     # frontend
+
+     - unit-test-path: <value>
+     - e2e-test-path: <value>
+     ```
 
 ## Ticket entry: `/plato <ticket-number>`
 

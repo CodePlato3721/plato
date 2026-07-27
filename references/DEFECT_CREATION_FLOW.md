@@ -8,8 +8,6 @@ Reached when the ticket type (already determined by the entry point) is `defect`
 3. Edit the new `status.json`:
    - set `type` to `defect`
    - set `title` to the given title
-   - set `unit-test-path` to the `unit-test-path` value recorded in `plato-workspace/project-context/SETTINGS.md`
-   - set `e2e-test-path` to the `e2e-test-path` value recorded in `plato-workspace/project-context/SETTINGS.md`
 4. Run `python scripts/generate_command.py <ticket-number> fixer TODO ""` —
    the script will generate a new session-id automatically.
 5. Create `plato-workspace/tickets/<ticket-number>/DEFECT.md` initialized with exactly these two empty sections:

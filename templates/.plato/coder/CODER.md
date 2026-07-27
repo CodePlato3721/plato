@@ -17,6 +17,7 @@ This file provides guidance to Claude Code when acting as a Coder agent. The rol
 - **status.json**: Ticket status, path: `plato-workspace/tickets/<ticket-number>/status.json`
 - **tasks.json**: All task statuses, path: `plato-workspace/tickets/<ticket-number>/tasks.json`
 - **DESIGN**: `plato-workspace/tickets/<ticket-number>/DESIGN.md`, the design context
+- **SETTINGS**: `plato-workspace/project-context/SETTINGS.md`, records the project's unit-test-path / e2e-test-path (see Step 1)
 
 All terms below refer to the paths defined above and will not be repeated in full.
 
@@ -31,23 +32,38 @@ Immediately after loading this file, do the following:
 
 Work through the following steps in order:
 
-### Step 1: Start Task
+### Step 1: Prepare Task
+
+Read **SETTINGS**.
+- If it contains a single flat `unit-test-path` / `e2e-test-path` pair (no
+  `#`-headed sections), use that pair for this task's tests.
+- If it contains multiple `#`-headed sections (one per project root, e.g.
+  `# backend`, `# frontend`), determine which section this task belongs to:
+  - Look for signals in **DESIGN** and this task's entry in **tasks.json**
+    (e.g. which root's files the task touches).
+  - If it's still ambiguous, ask the user which section's test paths apply
+    to this task.
+
+Keep the resolved `unit-test-path` and `e2e-test-path` in context for the
+rest of this session.
+
+### Step 2: Start Task
 
 Run `python .plato/scripts/status_cli.py coder run <ticket-number> <task-id> <session-id>` (registers the task in `coder.tasks` if it is not there yet, and sets it to `IN_PROGRESS`)
 
-### Step 2: Do the Work
+### Step 3: Do the Work
 
 Work according to the instructions in **tasks.json** and **DESIGN**.
 
-### Step 3: Generate CR
+### Step 4: Generate CR
 
 After work is complete, **do not commit or push** — write the CR content, following the format defined in **CR**, to disk at **.cr.md**'s path (this must be a real file, not just text in your reply). Read the file back to confirm it was actually written before moving on. Then run `python .plato/scripts/status_cli.py coder wait <ticket-number> <task-id>`
 
-### Step 4: Review via Q&A
+### Step 5: Review via Q&A
 
 Let the user review the generated code by asking you questions about it; answer each question they ask, fully and accurately, referring back to the actual code. Keep answering questions until the user is done and ready to reply with approve/reject/remake/etc.
 
-### Step 5: Echo
+### Step 6: Echo
 
 Echo the content of **.cr.md** to the user, reproducing it **verbatim** in your reply — the CR itself is the report. Do not summarize, reword, or wrap it in your own format.
 
@@ -56,7 +72,7 @@ Echo the content of **.cr.md** to the user, reproducing it **verbatim** in your 
 After **.cr.md** is created, wait for the user's reply and act as follows:
 
 - **approve**:
-  1. Check whether the user asked at least 3 questions about the generated code during **Step 4: Review via Q&A** in this session. If fewer than 3 questions were asked, **block**: tell the user they must ask at least 3 questions about the generated code before it can be approved, and stop here.
+  1. Check whether the user asked at least 3 questions about the generated code during **Step 5: Review via Q&A** in this session. If fewer than 3 questions were asked, **block**: tell the user they must ask at least 3 questions about the generated code before it can be approved, and stop here.
   2. For each `<rule file>: <rule text>` line in the **New Rules** section of **.cr.md**, append `<rule text>` to the **RULES** file `plato-workspace/role-rules/coder/<rule file>` (create the file if it does not exist)
   3. Run `python .plato/scripts/status_cli.py coder approve <ticket-number> <task-id>`
   4. Tell the user: "Done. Use `/exit` to leave this session, then run `/plato <ticket-number>` to continue to the next task. **The framework does not commit or push — remember to do it manually.**"
@@ -66,7 +82,7 @@ After **.cr.md** is created, wait for the user's reply and act as follows:
   2. Run `python .plato/scripts/status_cli.py coder reject <ticket-number> <task-id>`
   3. Tell the user: "Change rejected. Use `/exit` to leave this session, then run `/plato <ticket-number>` to start this task over."
 
-- **remake**: Using the full diff from `git diff HEAD`, regenerate **.cr.md** from scratch following the format in **CR**, overwrite it, echo it to the user verbatim (as in Step 4), and continue waiting for a reply. Do not modify **status.json**.
+- **remake**: Using the full diff from `git diff HEAD`, regenerate **.cr.md** from scratch following the format in **CR**, overwrite it, echo it to the user verbatim (as in Step 6), and continue waiting for a reply. Do not modify **status.json**.
 
 - **Any other reply (ask, modify, etc.)**: do not modify **.cr.md** or **status.json**
 

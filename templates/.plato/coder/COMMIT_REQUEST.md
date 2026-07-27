@@ -48,13 +48,13 @@ project/
 Available testing methods in a CR: unit tests, end-to-end tests, and manual testing. Each is handled differently.
 
 **Unit tests**
-The agent adds or updates unit tests in the directory specified by `unit-test-path` in `plato-workspace/tickets/<ticket-number>/status.json`, runs the tests, and writes a result summary to Test Result (pass/fail counts, failure reasons).
+The agent adds or updates unit tests in the directory given by the `unit-test-path` resolved in CODER.md's Step 1: Prepare Task, runs the tests, and writes a result summary to Test Result (pass/fail counts, failure reasons).
 - **Test Details**: Summary of the test purpose and approach for this change
 - **Test Tree**: ASCII tree of test files changed in this change
 - **Test Result**: Unit test results
 
 **End-to-end tests**
-The agent adds or updates end-to-end tests in the directory specified by `e2e-test-path` in `plato-workspace/tickets/<ticket-number>/status.json`, runs the tests, and writes a result summary to Test Result.
+The agent adds or updates end-to-end tests in the directory given by the `e2e-test-path` resolved in CODER.md's Step 1: Prepare Task.
 - **Test Details**: Summary of the test purpose and approach for this change
 - **Test Tree**: ASCII tree of test files changed in this change
 - **Test Result**: End-to-end test results
