@@ -38,14 +38,14 @@ AI coding today has four recurring problems:
    to follow.
 
 <div align="center">
-  <img src="assets/plato-agent-problems-four-panel.png" alt="Four problems with AI coding" width="480">
+  <img src="assets/plato-agent-problems-four-panel.png" alt="Four problems with AI coding" width="314">
 </div>
 
 A handful of simple, repeated actions resolve all four problems. Once
 Plato is part of your routine, your day-to-day be like:
 
 <div align="center">
-  <img src="assets/plato-working-be-like.png" alt="Plato working be like" width="480">
+  <img src="assets/plato-working-be-like.png" alt="Plato working be like" width="314">
 </div>
 
 ## Philosophy
@@ -70,7 +70,7 @@ your behalf. Every step is visible and stays under your control.
 ### Rule-Oriented Programming
 
 <div align="center">
-  <img src="assets/plato-rule-oriented-programming.png" alt="Rule-Oriented Programming" width="480">
+  <img src="assets/plato-rule-oriented-programming.png" alt="Rule-Oriented Programming" width="314">
 </div>
 
 ABR — **Agent Behavior Rules** — is the collective name for the markdown
@@ -85,7 +85,7 @@ tailored specifically to it.
 ### Loose, Transparent, and Honest
 
 <div align="center">
-  <img src="assets/plato-robot-driving-human-guiding-clean.png" alt="Loose, Transparent, and Honest" width="480">
+  <img src="assets/plato-robot-driving-human-guiding-clean.png" alt="Loose, Transparent, and Honest" width="314">
 </div>
 
 We're software engineers. We like transparency, because we need our
@@ -99,7 +99,7 @@ some learning to use well.
 ### Slow down
 
 <div align="center">
-  <img src="assets/plato-slow-down-two-cars.png" alt="Slow down" width="480">
+  <img src="assets/plato-slow-down-two-cars.png" alt="Slow down" width="314">
 </div>
 
 Working with Plato will feel slow — much slower than the one-click
