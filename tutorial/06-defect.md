@@ -36,3 +36,7 @@ Once `.fr.md` is approved, fixer:
 2. Files New Rules into `plato-workspace/role-rules/fixer/<file>`.
 3. Deletes `.fr.md`.
 4. Tells you to `/exit` the agent and commit the code yourself.
+
+---
+
+**Previous:** [← 05. ABR](05-abr.md)

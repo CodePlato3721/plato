@@ -108,3 +108,7 @@ do, coder will:
 
 Repeat this whole cycle — run task, step away, come back, question, approve
 — for every task in `tasks.json`, until all of them are done.
+
+---
+
+**Previous:** [← 02. Prepare workspace](02-prepare.md) · **Next:** [04. Commit Lock →](04-commit-lock.md)

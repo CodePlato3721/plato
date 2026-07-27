@@ -70,3 +70,7 @@ Once these actions are done, the agent deletes the commit lock file and
 marks that role's status in `status.json` as `DONE`, then tells you to
 `/exit` the session and commit the code yourself. Only at that point is
 this agent's work actually finished.
+
+---
+
+**Previous:** [← 03. Feature](03-feature.md) · **Next:** [05. ABR →](05-abr.md)

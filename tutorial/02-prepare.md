@@ -38,3 +38,7 @@ The framework never commits or pushes anything for you. This is not a bug
 — it's intentional. You're free to do anything you want before committing,
 and you decide when to commit and push yourself. This keeps the code clean
 and controllable right up until the moment it's actually committed.
+
+---
+
+**Previous:** [← 01. Begin](01-begin.md) · **Next:** [03. Feature →](03-feature.md)

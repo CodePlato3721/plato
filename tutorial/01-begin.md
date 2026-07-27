@@ -110,3 +110,7 @@ The core difference: `.plato` is **static** — it's part of the framework's
 own source, and you'll rarely need to touch it. `plato-workspace` is
 **dynamic** — it's the content that keeps growing and evolving as you
 actually work the project.
+
+---
+
+**Next:** [02. Prepare workspace →](02-prepare.md)
