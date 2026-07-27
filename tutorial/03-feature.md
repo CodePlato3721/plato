@@ -38,9 +38,15 @@ add it to the **New Rules** section. New Rules is a list, one entry per
 line, in the form `<file>: <rule>`.
 
 Once you and the agent have refined `DESIGN.md` together and every Opening
-Question is cleared, reply `approve` to move on. This deletes `.dr.md`,
-appends everything in Backlogs to `BACKLOGS.md`, and appends every New
-Rules entry into `plato-workspace/role-rules/designer/<file>`.
+Question is cleared, reply `approve` to move on. Once you do, designer
+will:
+
+1. Move everything in **Backlogs** to
+   `plato-workspace/project-context/BACKLOGS.md`.
+2. Move everything in **New Rules** to
+   `plato-workspace/role-rules/designer/<file>`.
+3. Delete `.dr.md`.
+4. Tell you to `/exit` the agent and commit the code yourself.
 
 If you're unhappy with the result, reply `reject` instead — this discards
 the current work and lets you start the step over from scratch.
@@ -62,9 +68,16 @@ When you come back, planner has already produced `tasks.json` and a
 and it gives you a resume command this time — something like `claude
 --resume ...`.
 
-Use that command to wake planner back up and revise `tasks.json` together.
-New Rules works exactly the same as it does for designer. When you're
-satisfied, `approve` or `reject`, same as before.
+Once planner is awake, you must ask it at least three questions about
+`tasks.json` to review the split — you can't `approve` without doing this.
+
+If you're happy with `tasks.json`, reply `approve`. Once you do, planner
+will:
+
+1. Move everything in **New Rules** to
+   `plato-workspace/role-rules/planner/<file>`.
+2. Delete `.tr.md`.
+3. Tell you to `/exit` the agent and commit the code yourself.
 
 ## coder
 
@@ -77,9 +90,21 @@ it's done.
 When you come back, ask the guide session again — `/plato <ticket-number>`
 — and it gives you the command to wake coder back up.
 
-Once coder is awake, you must ask **at least three questions** about the
-implementation before you're allowed to reply `approve`. New Rules works
-the same way here too.
+Once coder is awake, you must also ask it at least three questions about
+the code to review it before you're allowed to reply `approve`.
+
+> **Suggestion:** ask at least ten questions, and refactor the code as you
+> review it. Refactoring becomes a way of actually understanding — and
+> reviewing — the code, not just a cleanup step.
+
+If the code needs significant changes, reply `remake` — coder regenerates
+`.cr.md` from scratch. If the code looks good, reply `approve`. Once you
+do, coder will:
+
+1. Move everything in **New Rules** to
+   `plato-workspace/role-rules/coder/<file>`.
+2. Delete `.cr.md`.
+3. Tell you to `/exit` the agent and commit the code yourself.
 
 Repeat this whole cycle — run task, step away, come back, question, approve
 — for every task in `tasks.json`, until all of them are done.
