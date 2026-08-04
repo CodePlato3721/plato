@@ -19,6 +19,22 @@ open-ended mandate to build something from scratch.
 Plato organizes the whole lifecycle of that ticket, from requirement to reviewed diff, as a
 sequence of small, transparent, human-checkpointed AI sessions.
 
+## Quick Start
+
+```
+/plato init
+/plato HELLO-0001
+```
+
+That starts your first ticket.
+
+Before you use Plato for real, you **must** read the [tutorial](tutorial/01-begin.md).
+
+> **😱 You might be worried the tutorial will be long and boring.** I can
+> promise you it will be — **long and boring** , exactly like a Defense
+> Against the Dark Arts class🪄. If you're not a real software engineer, or don't have
+> the patience of one, this framework genuinely isn't for you.
+
 ## Why Plato
 
 AI coding today has four recurring problems:
@@ -120,20 +136,4 @@ npx skills@latest add CodePlato3721/plato -y -g
 
 This fetches the skill into your global skills directory, making `/plato`
 available in Claude Code.
-
-## Quick Start
-
-```
-/plato init
-/plato HELLO-0001
-```
-
-That starts your first ticket.
-
-Before you use Plato for real, you **must** read the [tutorial](tutorial/01-begin.md).
-
-> **😱 You might be worried the tutorial will be long and boring.** I can
-> promise you it will be — **long and boring** , exactly like a Defense
-> Against the Dark Arts class🪄. If you're not a real software engineer, or don't have
-> the patience of one, this framework genuinely isn't for you.
 

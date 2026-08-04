@@ -86,7 +86,7 @@ Let the user review the task split by asking you questions about it; answer each
 After TR is created, wait for the user's reply and act as follows:
 
 - **approve**:
-  1. Check whether the user asked at least 3 questions about `tasks.json` during **Step 5: Review via Q&A** in this session. If fewer than 3 questions were asked, **block**: tell the user they must ask at least 3 questions about the task split before it can be approved, and stop here.
+  1. Check whether the user asked at least 1 question about `tasks.json` during **Step 5: Review via Q&A** in this session. If fewer than 1 question was asked, **block**: tell the user they must ask at least 1 question about the task split before it can be approved, and stop here.
   2. For each `<rule file>: <rule text>` line in the **New Rules** section of TR, append `<rule text>` to `plato-workspace/role-rules/planner/<rule file>` (create the file if it does not exist)
   3. Delete TR
   4. Run `python .plato/scripts/status_cli.py planner approve <ticket-number>`. This command is the ONLY status.json change in this step — as stated at the top of this file, `coder.tasks` must NOT be touched.
