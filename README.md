@@ -19,6 +19,18 @@ open-ended mandate to build something from scratch.
 Plato organizes the whole lifecycle of that ticket, from requirement to reviewed diff, as a
 sequence of small, transparent, human-checkpointed AI sessions.
 
+## Installation
+
+This repository *is* a Claude Code Skill named `plato`. Install it with the
+[skills CLI](https://github.com/anthropics/skills):
+
+```
+npx skills@latest add CodePlato3721/plato -y -g
+```
+
+This fetches the skill into your global skills directory, making `/plato`
+available in Claude Code.
+
 ## Quick Start
 
 ```
@@ -124,16 +136,4 @@ It's still much faster than writing everything by hand, though. While other
 tools race to make AI coding faster, Plato deliberately tries to slow it
 down, because staying in control of the project matters more than raw
 speed.
-
-## Installation
-
-This repository *is* a Claude Code Skill named `plato`. Install it with the
-[skills CLI](https://github.com/anthropics/skills):
-
-```
-npx skills@latest add CodePlato3721/plato -y -g
-```
-
-This fetches the skill into your global skills directory, making `/plato`
-available in Claude Code.
 
