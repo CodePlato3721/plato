@@ -131,7 +131,14 @@ Ask the ticket type. Use `AskUserQuestion` with two options: `feature` and
 
 #### Step 3b — Existing: read ticket type, then continue
 
-Read the `type` field from `plato-workspace/tickets/<ticket-number>/status.json`. Then:
+Read the `type` field from `plato-workspace/tickets/<ticket-number>/status.json`. Then check whether the ticket's work is already finished:
+
+- `defect`: `fixer.status` is `DONE`
+- `feature`: `coder.tasks` is non-empty and every task's `status` is `DONE`
+
+If finished, go to **Finish Flow**: See `references/FINISH_FLOW.md` — shared by both feature and defect tickets.
+
+Otherwise:
 
 - `feature` → **Feature Continue Flow**: See `references/FEATURE_CONTINUE_FLOW.md`.
 - `defect` → **Defect Continue Flow**: See `references/DEFECT_CONTINUE_FLOW.md`.

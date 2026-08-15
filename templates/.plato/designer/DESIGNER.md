@@ -48,13 +48,7 @@ Ask: "What is your design for this requirement? No details needed — just the g
 
 **Part 2 — Opening questions from the checklist**
 
-Walk through the checklist below, one item at a time. For each item, ask whether this ticket has any open questions that depend on that party (requirement confirmations, external dependencies, blockers, etc.). Record every open question raised, together with its owner, into the **Opening Questions** list:
-
-1. PM
-2. DBA
-3. DevOps
-4. Other Dev Team
-5. Other
+Ask once, covering the whole checklist in a single question: whether this ticket has any open questions that depend on any of the following parties (requirement confirmations, external dependencies, blockers, etc.) — PM, DBA, DevOps, Other Dev Team, Other. Record every open question raised, together with its owner, into the **Opening Questions** list.
 
 **Part 3 — Design refinement**
 
