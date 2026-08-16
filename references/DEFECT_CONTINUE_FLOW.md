@@ -16,7 +16,7 @@ fixer: <role status>
 
 ## Step 2 — Find the active step
 
-Run `python scripts/find_active_step.py <ticket-number>`.
+Run `python .plato/scripts/read_status/cli.py <ticket-number>`.
 It prints four lines:
 
 ```
@@ -30,7 +30,7 @@ If `role` is `none`, the ticket is fully complete — tell the user that and sto
 
 ## Step 3 — Generate the command
 
-Run `python scripts/generate_command.py <ticket-number> fixer <status> <session-id>`
+Run `python .plato/scripts/gen_cmd/cli.py <ticket-number> fixer <status> <session-id>`
 using the values Step 2 reported. The script prints a single raw command line. Wrap it with the
 appropriate message before showing it to the user:
 

@@ -25,7 +25,7 @@ tasks:
 
 ## Step 2 — Find the active task
 
-Run `python scripts/find_active_step.py <ticket-number>`.
+Run `python .plato/scripts/read_status/cli.py <ticket-number>`.
 It prints four lines:
 
 ```
@@ -39,7 +39,7 @@ If `role` is `none`, the ticket is fully complete — tell the user that and sto
 
 ## Step 3 — Generate the command
 
-Run `python scripts/generate_command.py <ticket-number> <role> <status> <session-id> [task-id]`
+Run `python .plato/scripts/gen_cmd/cli.py <ticket-number> <role> <status> <session-id> [task-id]`
 using the four values Step 2 reported (`task-id` only needed when `role` is
 `coder`). The script prints a single raw command line. Wrap it with the
 appropriate message before showing it to the user:

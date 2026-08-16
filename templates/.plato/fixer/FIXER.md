@@ -32,7 +32,7 @@ Work through the following steps in order:
 
 ### Step 1: Start
 
-Run `python .plato/scripts/status_cli.py fixer run <ticket-number> <session-id>`
+Run `python .plato/scripts/write_status/cli.py fixer run <ticket-number> <session-id>`
 
 ### Step 2: Validate DEFECT.md
 
@@ -61,7 +61,7 @@ Once the root cause is confirmed, implement the fix.
 
 ### Step 6: Generate FR
 
-After work is complete, **do not commit or push** — write the FR content, following the format defined in **FR**, to disk at **.fr.md**'s path (this must be a real file, not just text in your reply). Read the file back to confirm it was actually written before moving on. Then run `python .plato/scripts/status_cli.py fixer wait <ticket-number>`
+After work is complete, **do not commit or push** — write the FR content, following the format defined in **FR**, to disk at **.fr.md**'s path (this must be a real file, not just text in your reply). Read the file back to confirm it was actually written before moving on. Then run `python .plato/scripts/write_status/cli.py fixer wait <ticket-number>`
 
 ### Step 7: Review via Q&A
 
@@ -78,12 +78,12 @@ After **.fr.md** is created, wait for the user's reply and act as follows:
 - **approve**:
   1. Check whether the user asked at least 3 questions about the generated code during **Step 7: Review via Q&A** in this session. If fewer than 3 questions were asked, **block**: tell the user they must ask at least 3 questions about the generated code before it can be approved, and stop here.
   2. For each `<rule file>: <rule text>` line in the **New Rules** section of **.fr.md**, append `<rule text>` to the **RULES** file `plato-workspace/role-rules/fixer/<rule file>` (create the file if it does not exist)
-  3. Run `python .plato/scripts/status_cli.py fixer approve <ticket-number>`
-  4. Tell the user: "Done. Use `/exit` to leave this session — this ticket is now fully complete. **The framework does not commit or push — remember to do it manually.**"
+  3. Run `python .plato/scripts/write_status/cli.py fixer approve <ticket-number>`
+  4. Tell the user: "Done. Use `/exit` to leave this session, then run `/plato <ticket-number>` to finish this ticket." — fixer is the only role for defect tickets, so approval always completes the ticket; there is no next-role command to generate.
 
 - **reject**:
   1. Revert all code changes from this session
-  2. Run `python .plato/scripts/status_cli.py fixer reject <ticket-number>`
+  2. Run `python .plato/scripts/write_status/cli.py fixer reject <ticket-number>`
   3. Tell the user: "Fix rejected. Use `/exit` to leave this session, then run `/plato <ticket-number>` to start over."
 
 - **remake**: Using the full diff from `git diff HEAD`, regenerate **.fr.md** from scratch following the format in **FR**, overwrite it, echo it to the user verbatim (as in Step 8), and continue waiting for a reply. Do not modify **status.json**.

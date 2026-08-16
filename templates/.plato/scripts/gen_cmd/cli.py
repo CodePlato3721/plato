@@ -7,7 +7,7 @@ from roles.session import prepare_session_id
 def main() -> None:
     if len(sys.argv) not in (5, 6):
         print(
-            "usage: generate_command.py <ticket-number> <role> <status> <session-id> [task-id]",
+            "usage: cli.py <ticket-number> <role> <status> <session-id> [task-id]",
             file=sys.stderr,
         )
         sys.exit(1)
