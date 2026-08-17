@@ -1,6 +1,6 @@
 ---
 name: plato
-description: Entry point for the Plato ticket workflow (designer/planner/coder role pipeline for features, fixer role pipeline for defects, under plato-workspace/tickets). Creates a new ticket workspace or reports the current state of an existing one and produces the exact `claude -p` / `claude --resume` command to run next.
+description: Entry point for the Plato ticket workflow (designer/planner/coder role pipeline for features, fixer role pipeline for defects, under plato-workspace/tickets). Creates a new ticket workspace or reports the current state of an existing one and produces the exact `claude` / `claude --resume` command to run next.
 disable-model-invocation: true
 ---
 
@@ -19,15 +19,17 @@ Sets up the Plato framework files in this repo (`.plato/` and
 Reached when `/plato` is invoked with the argument `init`.
 
 1. Copy `templates/.plato` to `.plato` at the project root.
-2. Copy `templates/plato-workspace` to `plato-workspace` at the project root.
-3. Determine the project's roots:
+2. Add `.plato/` to `.gitignore` at the project root (create the file if
+   missing; append the line only if it isn't already present).
+3. Copy `templates/plato-workspace` to `plato-workspace` at the project root.
+4. Determine the project's roots:
    - If the project does **not** have separate frontend and backend roots (a
      single app, no sibling `backend/` and `frontend/` directories at the
      project root), there is a single root: the project root itself.
    - If the project **does** have separate frontend and backend roots (e.g.
      `backend/` and `frontend/`), there are two roots, named after those
      directories.
-4. For **each** root from step 3, independently determine default test paths
+5. For **each** root from step 4, independently determine default test paths
    and confirm them with the user:
    - Search **only inside that root** (look for `tests/unit`, `test/unit`,
      `<root>/tests/unit`, etc., and `tests/e2e`, `test/e2e`,
@@ -39,7 +41,7 @@ Reached when `/plato` is invoked with the argument `init`.
      `AskUserQuestion`:
      - Option A: the inferred default (label it as "Use default: <path>")
      - Option B: "Enter a custom path" (user types their own value)
-5. Write the confirmed paths to `plato-workspace/project-context/SETTINGS.md`,
+6. Write the confirmed paths to `plato-workspace/project-context/SETTINGS.md`,
    creating the file if missing:
    - **Single root**: write a flat pair, no header, updating these lines if
      they already exist:
@@ -62,6 +64,24 @@ Reached when `/plato` is invoked with the argument `init`.
      - e2e-test-path: <value>
      ```
 
+## Upgrade entry: `/plato upgrade`
+
+Refreshes this project's `.plato/` with the version bundled in this skill,
+without touching `plato-workspace/`.
+
+### Upgrade Flow
+
+Reached when `/plato` is invoked with the argument `upgrade`.
+
+1. If `.plato` does not exist at the project root, tell the user to run
+   `/plato init` instead and stop.
+2. Overwrite `.plato` at the project root with `templates/.plato` (delete
+   files that no longer exist in the template, add new ones, replace
+   changed ones). Do **not** touch `plato-workspace/` in any way.
+3. Tell the user the upgrade is done. `.plato` is gitignored, static
+   framework source regenerated from this skill's templates — any local
+   edits to it are not tracked by git and would be silently overwritten.
+
 ## Ticket entry: `/plato <ticket-number>`
 
 **Ticket Types:**
@@ -77,7 +97,7 @@ Each role (and each coder task) has a `status` field with one of four values:
 | Status | Meaning |
 |---|---|
 | `TODO` | Not started yet. |
-| `IN_PROGRESS` | Running right now in the background. |
+| `IN_PROGRESS` | Running right now. |
 | `WAITING` | Finished its current run and is waiting for the user to resume the session and interact. |
 | `DONE` | Fully complete. |
 
