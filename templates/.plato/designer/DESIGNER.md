@@ -97,13 +97,13 @@ After DR is created, wait for the user's reply and act as follows:
   5. Run `python .plato/scripts/write_status/cli.py designer approve <ticket-number>`
   6. Run `python .plato/scripts/read_status/cli.py <ticket-number>`. It prints four lines: `role`, `task-id`, `status`, `session-id` — describing the next step.
   7. Run `python .plato/scripts/gen_cmd/cli.py <ticket-number> <role> <status> <session-id> [task-id]` using those values (`task-id` only needed when `role` is `coder`). The script prints a single raw command line.
-  8. Tell the user: "Done. Use `/exit` to leave this session, then run this to continue to the next step:\n\n    <command>\n\n(You can also get this command again at any time by running `/plato <ticket-number>`.)" — using the command from Step 7.
+  8. Tell the user: "Done. **Use `/exit` to leave this session**, then run this to continue to the next step:\n\n    <command>\n\n(You can also get this command again at any time by running `/plato <ticket-number>`.)" — using the command from Step 7.
 
 - **reject**:
   1. Delete DESIGN.md
   2. Delete DR
   3. Run `python .plato/scripts/write_status/cli.py designer reject <ticket-number>`
-  4. Tell the user: "Design rejected. Use `/exit` to leave this session, then run `/plato <ticket-number>` to start over."
+  4. Tell the user: "Design rejected. **Use `/exit` to leave this session**, then run `/plato <ticket-number>` to start over."
 
 - **Any other reply (ask, modify, etc.)**: do not modify DR or status.json
 
