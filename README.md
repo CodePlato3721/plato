@@ -70,8 +70,6 @@ Plato is built around four ideas:
   that nobody can actually review.
 - You're an **CTO** who's noticed that since adopting AI,
   bugs appear much faster and get fixed much slower.
-- You're a **CFO** who's noticed engineering's token spend is too high — and
-  climbing faster every month.
 
 ## Philosophy
 
