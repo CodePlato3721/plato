@@ -35,7 +35,7 @@ using the values Step 2 reported. The script prints a single raw command line. W
 appropriate message before showing it to the user:
 
 - **`TODO`**: "You can start this step now:\n\n    <command>"
-- **`IN_PROGRESS`**: "The `fixer` agent is currently running in the background. Please wait — once it finishes you can resume the session with:\n\n    <command>"
+- **`IN_PROGRESS`**: "The `fixer` agent is currently running. Please wait — once it finishes you can resume the session with:\n\n    <command>"
 - **`WAITING`**: "The `fixer` agent finished its run and is waiting for your input. Resume the session with:\n\n    <command>"
 
 If `status` is `TODO` and `session-id` was empty, the script generates a new

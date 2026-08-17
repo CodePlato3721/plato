@@ -36,7 +36,7 @@ Every role (and every coder task) carries a `status`:
 | Status | Meaning |
 |---|---|
 | `TODO` | Not started yet. |
-| `IN_PROGRESS` | Running right now, in the background. |
+| `IN_PROGRESS` | Running right now. |
 | `WAITING` | Finished its current run and is waiting for you to resume and respond. |
 | `DONE` | Fully complete. |
 

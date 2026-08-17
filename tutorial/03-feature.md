@@ -16,10 +16,6 @@ can open it directly at any time to see exactly where the ticket stands.
 
 ## designer
 
-> **📌 Note:** almost every agent session in Plato runs in the background.
-> designer is one of the few that doesn't — you sit through it
-> interactively.
-
 designer reads your requirement from `REQUIREMENT.md`. That file must have
 two sections filled in: **User Story** and **Acceptance Criteria**.
 
@@ -55,16 +51,15 @@ the current work and lets you start the step over from scratch.
 
 Once designer has produced `DESIGN.md`, ask the guide session with `/plato
 <ticket-number>`. It gives you the next command to run — something like
-`claude -p --session-id ...`.
+`claude --session-id ...`.
 
 Take that command to the working session and run it there. This starts a
-planner running **in the background**. It splits the design into tasks
-following whatever principles you've set — by default,
-`plato-workspace/role-rules/planner/MATRIX_SPLIT.md`. You're free to go do
-something else while it works.
+planner session, interactively, same as designer. It splits the design
+into tasks following whatever principles you've set — by default,
+`plato-workspace/role-rules/planner/MATRIX_SPLIT.md`.
 
-When you come back, planner has already produced `tasks.json` and a
-`.tr.md` file. Ask the guide session again with `/plato <ticket-number>`,
+If you ever exit the session before planner has produced `tasks.json` and
+a `.tr.md` file, ask the guide session again with `/plato <ticket-number>`,
 and it gives you a resume command this time — something like `claude
 --resume ...`.
 
@@ -82,13 +77,12 @@ will:
 ## coder
 
 Once planning is done, ask the guide session again: `/plato
-<ticket-number>`. It gives you the background command for the **first**
-task. Take it to the working session and run it, then go do something else
-— coder implements the task on its own and produces a `.cr.md` file when
-it's done.
+<ticket-number>`. It gives you the command for the **first** task. Take it
+to the working session and run it there — coder implements the task
+interactively and produces a `.cr.md` file when it's done.
 
-When you come back, ask the guide session again — `/plato <ticket-number>`
-— and it gives you the command to wake coder back up.
+If you exit before it's done, ask the guide session again — `/plato
+<ticket-number>` — and it gives you the command to resume coder.
 
 Once coder is awake, you must also ask it at least three questions about
 the code to review it before you're allowed to reply `approve`.
@@ -106,8 +100,8 @@ do, coder will:
 2. Delete `.cr.md`.
 3. Tell you to `/exit` the agent and commit the code yourself.
 
-Repeat this whole cycle — run task, step away, come back, question, approve
-— for every task in `tasks.json`, until all of them are done.
+Repeat this whole cycle — run task, question, approve — for every task in
+`tasks.json`, until all of them are done.
 
 ---
 
