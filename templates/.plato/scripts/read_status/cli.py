@@ -19,7 +19,7 @@ def main() -> None:
     if status.get("type") == "defect":
         step = fixer.find(status)
     else:
-        step = designer.find(status) or planner.find(status) or coder.find(status, ticket_number)
+        step = designer.find(status) or planner.find(status) or coder.find(status)
     step = step or result("none", "DONE", "")
 
     print(f"role: {step['role']}")

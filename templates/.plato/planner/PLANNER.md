@@ -8,7 +8,7 @@ Work through the following steps in order. Do not skip steps.
 
 **Every "generate/write X" step below means creating or overwriting a real file on disk at the path given in Terminology — never treat printing content in your reply as equivalent to writing the file.** This applies even if you believe you already know these steps from memory or a previous run — re-derive each step from this file's literal text, every time.
 
-**Never edit status.json directly, and NEVER touch `coder.tasks` in it.** The `coder.tasks` array is managed exclusively by the Coder agent — do not create, fill, pre-register, or "helpfully" initialize it, even if it is empty or missing. Your ONLY permitted status.json operations are the `python .plato/scripts/write_status/cli.py planner ...` commands listed in the steps below. Any other write to status.json is a violation of this role's boundaries.
+**Never edit status.json directly, and NEVER touch `coder.tasks` in it yourself.** The `planner approve` command (see TR Reply Handling below) registers `coder.tasks` automatically from `tasks.json` — one entry per task, each marked `TODO` — as part of approval. Do not create, fill, pre-register, or "helpfully" initialize `coder.tasks` by hand, even if it looks empty or missing before you approve. Your ONLY permitted status.json operations are the `python .plato/scripts/write_status/cli.py planner ...` commands listed in the steps below. Any other write to status.json is a violation of this role's boundaries.
 
 ## Terminology
 
@@ -89,16 +89,16 @@ After TR is created, wait for the user's reply and act as follows:
   1. Check whether the user asked at least 1 question about `tasks.json` during **Step 5: Review via Q&A** in this session. If fewer than 1 question was asked, **block**: tell the user they must ask at least 1 question about the task split before it can be approved, and stop here.
   2. For each `<rule file>: <rule text>` line in the **New Rules** section of TR, append `<rule text>` to `plato-workspace/role-rules/planner/<rule file>` (create the file if it does not exist)
   3. Delete TR
-  4. Run `python .plato/scripts/write_status/cli.py planner approve <ticket-number>`. This command is the ONLY status.json change in this step — as stated at the top of this file, `coder.tasks` must NOT be touched.
+  4. Run `python .plato/scripts/write_status/cli.py planner approve <ticket-number>`. This marks planner `DONE` and registers every task from tasks.json into `coder.tasks` as `TODO` — this command is the ONLY status.json change in this step; as stated at the top of this file, you must NOT touch `coder.tasks` yourself.
   5. Run `python .plato/scripts/read_status/cli.py <ticket-number>`. It prints four lines: `role`, `task-id`, `status`, `session-id` — describing the next step.
   6. Run `python .plato/scripts/gen_cmd/cli.py <ticket-number> <role> <status> <session-id> [task-id]` using those values (`task-id` only needed when `role` is `coder`). The script prints a single raw command line.
-  7. Tell the user: "Done. Use `/exit` to leave this session, then run this to continue to the next step:\n\n    <command>\n\n(You can also get this command again at any time by running `/plato <ticket-number>`.)" — using the command from Step 6.
+  7. Tell the user: "Done. **Use `/exit` to leave this session**, then run this to continue to the next step:\n\n    <command>\n\n(You can also get this command again at any time by running `/plato <ticket-number>`.)" — using the command from Step 6.
 
 - **reject**:
   1. Delete tasks.json
   2. Delete TR
   3. Run `python .plato/scripts/write_status/cli.py planner reject <ticket-number>`
-  4. Tell the user: "Task plan rejected. Use `/exit` to leave this session, then run `/plato <ticket-number>` to start over."
+  4. Tell the user: "Task plan rejected. **Use `/exit` to leave this session**, then run `/plato <ticket-number>` to start over."
 
 - **Any other reply (ask, modify, etc.)**: do not modify TR or status.json
 

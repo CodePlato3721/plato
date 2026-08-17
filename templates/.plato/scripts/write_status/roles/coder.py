@@ -16,25 +16,12 @@ def _set_task_status(ticket_number: str, task_id: str, status: str, session_id: 
             print(f"{task_id} in ticket {ticket_number} set to {status}")
             return
 
-    print(f"{task_id} not found in ticket {ticket_number} - run it first", file=sys.stderr)
+    print(f"{task_id} not found in ticket {ticket_number} - the planner did not register this task", file=sys.stderr)
     sys.exit(1)
 
 
 def run(ticket_number: str, task_id: str, session_id: str) -> None:
-    path, data = load_status(ticket_number)
-    tasks = data.setdefault("coder", {}).setdefault("tasks", [])
-
-    for task in tasks:
-        if task.get("id") == task_id:
-            task["status"] = "IN_PROGRESS"
-            task.setdefault("coder", {})["session-id"] = session_id
-            save_status(path, data)
-            print(f"{task_id} in ticket {ticket_number} set to IN_PROGRESS")
-            return
-
-    tasks.append({"id": task_id, "status": "IN_PROGRESS", "coder": {"session-id": session_id}})
-    save_status(path, data)
-    print(f"registered {task_id} in ticket {ticket_number} and set to IN_PROGRESS")
+    _set_task_status(ticket_number, task_id, "IN_PROGRESS", session_id)
 
 
 def wait(ticket_number: str, task_id: str) -> None:

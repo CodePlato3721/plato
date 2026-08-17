@@ -19,6 +19,13 @@ def save_status(path: Path, data: dict) -> None:
     path.write_text(json.dumps(data, indent=4, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
+def load_plan_tasks(ticket_number: str) -> list:
+    tasks_path = Path("plato-workspace/tickets") / ticket_number / "tasks.json"
+    if not tasks_path.exists():
+        return []
+    return json.loads(tasks_path.read_text(encoding="utf-8")).get("tasks", [])
+
+
 def delete_ticket_file(ticket_number: str, filename: str) -> None:
     path = Path("plato-workspace/tickets") / ticket_number / filename
     if path.exists():

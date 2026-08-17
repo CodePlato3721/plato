@@ -49,7 +49,7 @@ rest of this session.
 
 ### Step 2: Start Task
 
-Run `python .plato/scripts/write_status/cli.py coder run <ticket-number> <task-id> <session-id>` (registers the task in `coder.tasks` if it is not there yet, and sets it to `IN_PROGRESS`)
+Run `python .plato/scripts/write_status/cli.py coder run <ticket-number> <task-id> <session-id>` (sets this task's status to `IN_PROGRESS` and records this session's session-id; the task must already be registered in `coder.tasks` by the planner — this command does not create tasks)
 
 ### Step 3: Do the Work
 
@@ -75,16 +75,16 @@ After **.cr.md** is created, wait for the user's reply and act as follows:
   1. Check whether the user asked at least 3 questions about the generated code during **Step 5: Review via Q&A** in this session. If fewer than 3 questions were asked, **block**: tell the user they must ask at least 3 questions about the generated code before it can be approved, and stop here.
   2. For each `<rule file>: <rule text>` line in the **New Rules** section of **.cr.md**, append `<rule text>` to the **RULES** file `plato-workspace/role-rules/coder/<rule file>` (create the file if it does not exist)
   3. Run `python .plato/scripts/write_status/cli.py coder approve <ticket-number> <task-id>`
-  4. Re-read **tasks.json**. If every task's `status` is now `DONE` (this was the last remaining task), tell the user: "Done. Use `/exit` to leave this session, then run `/plato <ticket-number>` to finish this ticket." and stop here — do not generate a next command.
+  4. Re-read **tasks.json**. If every task's `status` is now `DONE` (this was the last remaining task), tell the user: "Done. **Use `/exit` to leave this session**, then run `/plato <ticket-number>` to finish this ticket." and stop here — do not generate a next command.
   5. Otherwise:
      1. Run `python .plato/scripts/read_status/cli.py <ticket-number>`. It prints four lines: `role`, `task-id`, `status`, `session-id` — describing the next step.
      2. Run `python .plato/scripts/gen_cmd/cli.py <ticket-number> <role> <status> <session-id> [task-id]` using those values (`task-id` only needed when `role` is `coder`). The script prints a single raw command line.
-     3. Tell the user: "Done. Use `/exit` to leave this session, then run this to continue to the next task:\n\n    <command>\n\n(You can also get this command again at any time by running `/plato <ticket-number>`.)" — using the command from the previous step.
+     3. Tell the user: "Done. **Use `/exit` to leave this session**, then run this to continue to the next task:\n\n    <command>\n\n(You can also get this command again at any time by running `/plato <ticket-number>`.)" — using the command from the previous step.
 
 - **reject**:
   1. Revert all code changes from this session
   2. Run `python .plato/scripts/write_status/cli.py coder reject <ticket-number> <task-id>`
-  3. Tell the user: "Change rejected. Use `/exit` to leave this session, then run `/plato <ticket-number>` to start this task over."
+  3. Tell the user: "Change rejected. **Use `/exit` to leave this session**, then run `/plato <ticket-number>` to start this task over."
 
 - **remake**: Using the full diff from `git diff HEAD`, regenerate **.cr.md** from scratch following the format in **CR**, overwrite it, echo it to the user verbatim (as in Step 6), and continue waiting for a reply. Do not modify **status.json**.
 
