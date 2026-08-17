@@ -52,7 +52,7 @@ ABR grows in two ways:
 
 ABR is **automatically** added as a prompt file to the command line the
 guide session generates for you. For example:
-`claude -p --session-id "...." --append-system-prompt-file ".plato/coder/CODER.md" ...`.
+`claude --session-id "...." --append-system-prompt-file ".plato/coder/CODER.md" ...`.
 
 ---
 

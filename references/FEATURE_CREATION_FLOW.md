@@ -9,7 +9,7 @@ Reached when the ticket type (already determined by the entry point) is `feature
 4. Edit the new `status.json`:
    - set `type` to `feature`
    - set `title` to the given title
-5. Run `python scripts/generate_command.py <ticket-number> designer TODO ""` —
+5. Run `python .plato/scripts/gen_cmd/cli.py <ticket-number> designer TODO ""` —
    the script will generate a new session-id automatically.
 6. Create `plato-workspace/tickets/<ticket-number>/REQUIREMENT.md` initialized with exactly these two empty sections:
    ```
