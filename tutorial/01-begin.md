@@ -51,9 +51,8 @@ Feature tickets move through three roles, strictly in order:
 1. **designer** — reads `REQUIREMENT.md`, interviews you with clarifying
    questions, and produces `DESIGN.md` plus a Design Review (`.dr.md`) for
    you to approve or reject.
-2. **planner** — reads `DESIGN.md` and breaks it into `tasks.json`, one
-   task per row of the tech-stack × business-domain split, presented as a
-   Tasks Review (`.tr.md`).
+2. **planner** — reads `DESIGN.md` and breaks it into `tasks.json`,
+   presented as a Tasks Review (`.tr.md`).
 3. **coder** — implements `tasks.json` one task at a time. Each task
    produces its own Commit Request (`.cr.md`) that you review and approve
    before the next task starts.

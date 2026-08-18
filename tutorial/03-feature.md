@@ -54,9 +54,10 @@ Once designer has produced `DESIGN.md`, ask the guide session with `/plato
 `claude --session-id ...`.
 
 Take that command to the working session and run it there. This starts a
-planner session, interactively, same as designer. It splits the design
-into tasks following whatever principles you've set — by default,
-`plato-workspace/role-rules/planner/MATRIX_SPLIT.md`.
+planner session, interactively, same as designer. It lists the
+task-splitting strategies under `.plato/planner/strategies/`, recommends
+one based on `DESIGN.md`, and asks you to pick one before it splits the
+design into tasks.
 
 If you ever exit the session before planner has produced `tasks.json` and
 a `.tr.md` file, ask the guide session again with `/plato <ticket-number>`,
