@@ -2,9 +2,7 @@
     "tasks": [
         {
             "id": "task-01",
-            "description": "example text",
-            "tech-stack": "",
-            "business-domain": ""
+            "description": "example text"
         }
     ]
 }
