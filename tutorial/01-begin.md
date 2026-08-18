@@ -16,14 +16,20 @@ Every unit of work in Plato is a **ticket**, tracked under
 `plato-workspace/tickets/<ticket-number>/status.json`. A ticket has exactly
 one `type`, and the type decides which roles it moves through:
 
-- **feature** — new functionality, described by a `REQUIREMENT.md` (user
-  story + acceptance criteria), worked by the full **designer → planner →
-  coder** pipeline.
+- **simple_feature** — new functionality, described by a `REQUIREMENT.md`
+  (user story + acceptance criteria), worked by **designer → coder**. No
+  planning phase — coder implements the whole feature in one pass.
+- **complex_feature** — same `REQUIREMENT.md` input, but worked by the full
+  **designer → planner → coder** pipeline. planner breaks `DESIGN.md` down
+  into small tasks, and coder implements them one at a time.
 - **defect** — a bug, described by a `DEFECT.md` (description + repro
   steps), worked by the single **fixer** role.
 
 You pick the type once, when you create the ticket with `/plato
-<ticket-number>`
+<ticket-number>`: first `feature` or `defect`, and if `feature`, a
+follow-up question — simple or complex — decides which of the two feature
+pipelines above the ticket actually gets. Plato explains the difference
+when it asks.
 
 ## Roles
 
@@ -44,13 +50,23 @@ You never run `claude` by hand to move a ticket forward — `/plato
 <ticket-number>` always tells you the exact command to run next, based on
 this status.
 
-### Feature roles
+### Simple feature roles
 
-Feature tickets move through three roles, strictly in order:
+Simple feature tickets move through two roles, strictly in order:
 
 1. **designer** — reads `REQUIREMENT.md`, interviews you with clarifying
    questions, and produces `DESIGN.md` plus a Design Review (`.dr.md`) for
    you to approve or reject.
+2. **coder** — implements the entire feature in one pass, guided by
+   `DESIGN.md`, and produces a Commit Request (`.cr.md`) for you to review
+   and approve. Once you approve it, the ticket is done — there's no
+   per-task loop.
+
+### Complex feature roles
+
+Complex feature tickets move through three roles, strictly in order:
+
+1. **designer** — same as above.
 2. **planner** — reads `DESIGN.md` and breaks it into `tasks.json`,
    presented as a Tasks Review (`.tr.md`).
 3. **coder** — implements `tasks.json` one task at a time. Each task
@@ -83,6 +99,9 @@ The rulebook. This is what governs *how* each role behaves:
 - `designer/DESIGNER.md`, `planner/PLANNER.md`, `coder/CODER.md`,
   `fixer/FIXER.md` — the ABR (Agent Behavior Rules) file for each role,
   appended as the system prompt when that role's session starts.
+- `planner/strategies/` — task-splitting strategies (e.g.
+  `TRACER_BULLET.md`, `VERTICAL_SLICE.md`) planner picks from when working
+  a `complex_feature` ticket, one file per strategy.
 - `*_REQUEST.md` files next to each role's ABR — the commit-lock rule
   files. See [`04-commit-lock.md`](04-commit-lock.md) for details, but you
   don't need to dig into this yet.
@@ -97,8 +116,8 @@ Where the actual work lives:
   anything every agent must know goes in `INDEX.md`'s **must know**
   section; everything else goes into subfolders, indexed from `INDEX.md`,
   so agents don't load more context than they need.
-- `role-rules/<role>/` — living rule files per role (e.g. `NEVER.md`,
-  `MATRIX_SPLIT.md`), loaded into that role's context on every run.
+- `role-rules/<role>/` — living rule files per role (e.g. `NEVER.md`),
+  loaded into that role's context on every run.
 - `tickets/<ticket-number>/` — one folder per ticket, created on demand.
   Holds `status.json`, plus the ticket's requirement/design/review files,
   etc.

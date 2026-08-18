@@ -1,6 +1,11 @@
-from .common import result
+from .common import find_role_step, result
 
 ROLE = "coder"
+
+
+def find_simple(status: dict) -> dict | None:
+    """simple_feature: coder is a single role entry, same shape as designer/fixer."""
+    return find_role_step(status, ROLE)
 
 
 def find(status: dict) -> dict | None:

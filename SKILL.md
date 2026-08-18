@@ -1,6 +1,6 @@
 ---
 name: plato
-description: Entry point for the Plato ticket workflow (designer/planner/coder role pipeline for features, fixer role pipeline for defects, under plato-workspace/tickets). Creates a new ticket workspace or reports the current state of an existing one and produces the exact `claude` / `claude --resume` command to run next.
+description: Entry point for the Plato ticket workflow (designer/coder role pipeline for simple features, designer/planner/coder for complex features, fixer role pipeline for defects, under plato-workspace/tickets). Creates a new ticket workspace or reports the current state of an existing one and produces the exact `claude` / `claude --resume` command to run next.
 disable-model-invocation: true
 ---
 
@@ -86,9 +86,10 @@ Reached when `/plato` is invoked with the argument `upgrade`.
 
 **Ticket Types:**
 
-Every ticket has a `type` — `feature` or `defect` — and each type moves
-through its own role pipeline. Each role is run as a separate `claude` CLI
-invocation with its own session, described by `.plato/<role>/<ROLE>.md`.
+Every ticket has a `type` — `simple_feature`, `complex_feature`, or `defect`
+— and each type moves through its own role pipeline. Each role is run as a
+separate `claude` CLI invocation with its own session, described by
+`.plato/<role>/<ROLE>.md`.
 
 **Role status states:**
 
@@ -101,9 +102,24 @@ Each role (and each coder task) has a `status` field with one of four values:
 | `WAITING` | Finished its current run and is waiting for the user to resume the session and interact. |
 | `DONE` | Fully complete. |
 
-### Feature
+### Simple Feature
 
-Feature tickets move through three roles, in order: **designer → planner → coder**.
+Simple feature tickets move through two roles, in order: **designer → coder**.
+No planner step, and `coder` is a single role entry (not a task list) —
+there's no task-by-task breakdown.
+
+#### Role → file mapping
+
+| role | append-system-prompt-file |
+|---|---|
+| `designer` | `.plato/designer/DESIGNER.md` |
+| `coder` | `.plato/coder/CODER.md` |
+
+### Complex Feature
+
+Complex feature tickets move through three roles, in order: **designer → planner → coder**.
+The planner breaks the design into small tasks, and `coder` works through
+`coder.tasks[]` one task at a time.
 
 #### Role → file mapping
 
@@ -144,9 +160,16 @@ Check whether `plato-workspace/tickets/<ticket-number>/status.json` exists.
 #### Step 3a — New: determine ticket type, then create
 
 Ask the ticket type. Use `AskUserQuestion` with two options: `feature` and
-`defect`. Then:
+`defect`.
 
-- `feature` → **Feature Creation Flow**: See `references/FEATURE_CREATION_FLOW.md`.
+If `feature`, ask a follow-up question with `AskUserQuestion`: whether it's a
+**simple feature** or a **complex feature**. Explain the difference — a
+complex feature enables the planner role, which breaks the design down into
+small tasks executed one at a time; a simple feature skips planning and goes
+straight from design to a single coder pass. Then:
+
+- `simple feature` → **Simple Feature Creation Flow**: See `references/SIMPLE_FEATURE_CREATION_FLOW.md`.
+- `complex feature` → **Complex Feature Creation Flow**: See `references/COMPLEX_FEATURE_CREATION_FLOW.md`.
 - `defect` → **Defect Creation Flow**: See `references/DEFECT_CREATION_FLOW.md`.
 
 #### Step 3b — Existing: read ticket type, then continue
@@ -154,11 +177,13 @@ Ask the ticket type. Use `AskUserQuestion` with two options: `feature` and
 Read the `type` field from `plato-workspace/tickets/<ticket-number>/status.json`. Then check whether the ticket's work is already finished:
 
 - `defect`: `fixer.status` is `DONE`
-- `feature`: `coder.tasks` is non-empty and every task's `status` is `DONE`
+- `complex_feature`: `coder.tasks` is non-empty and every task's `status` is `DONE`
+- `simple_feature`: `coder.status` is `DONE`
 
-If finished, go to **Finish Flow**: See `references/FINISH_FLOW.md` — shared by both feature and defect tickets.
+If finished, go to **Finish Flow**: See `references/FINISH_FLOW.md` — shared by all ticket types.
 
 Otherwise:
 
-- `feature` → **Feature Continue Flow**: See `references/FEATURE_CONTINUE_FLOW.md`.
+- `simple_feature` → **Simple Feature Continue Flow**: See `references/SIMPLE_FEATURE_CONTINUE_FLOW.md`.
+- `complex_feature` → **Complex Feature Continue Flow**: See `references/COMPLEX_FEATURE_CONTINUE_FLOW.md`.
 - `defect` → **Defect Continue Flow**: See `references/DEFECT_CONTINUE_FLOW.md`.

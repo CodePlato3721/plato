@@ -1,11 +1,13 @@
 import sys
 
-from .common import delete_ticket_file, load_status, save_status
+from .common import delete_ticket_file, load_status, save_status, set_entry_status
+
+ROLE = "coder"
 
 
 def _set_task_status(ticket_number: str, task_id: str, status: str, session_id: str | None = None) -> None:
     path, data = load_status(ticket_number)
-    tasks = data.get("coder", {}).get("tasks", [])
+    tasks = data.get(ROLE, {}).get("tasks", [])
 
     for task in tasks:
         if task.get("id") == task_id:
@@ -36,3 +38,24 @@ def approve(ticket_number: str, task_id: str) -> None:
 def reject(ticket_number: str, task_id: str) -> None:
     delete_ticket_file(ticket_number, ".cr.md")
     _set_task_status(ticket_number, task_id, "TODO", session_id="")
+
+
+# simple_feature: coder is a single role entry, same shape as designer/fixer — no task-id.
+
+
+def run_simple(ticket_number: str, session_id: str) -> None:
+    set_entry_status(ticket_number, ROLE, "IN_PROGRESS", session_id)
+
+
+def wait_simple(ticket_number: str) -> None:
+    set_entry_status(ticket_number, ROLE, "WAITING")
+
+
+def approve_simple(ticket_number: str) -> None:
+    delete_ticket_file(ticket_number, ".cr.md")
+    set_entry_status(ticket_number, ROLE, "DONE")
+
+
+def reject_simple(ticket_number: str) -> None:
+    delete_ticket_file(ticket_number, ".cr.md")
+    set_entry_status(ticket_number, ROLE, "TODO", session_id="")

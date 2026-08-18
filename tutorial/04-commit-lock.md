@@ -43,6 +43,8 @@ one isn't repeated separately under each role below.
 
 ### planner
 
+*(complex feature tickets only.)*
+
 **approve**: moves everything in **New Rules** into
 `plato-workspace/role-rules/planner/<file>`. (`.tr.md` has no Backlogs
 section, so there's nothing to move there.)

@@ -15,10 +15,14 @@ def main() -> None:
         sys.exit(1)
 
     status = read_status(ticket_number)
+    ticket_type = status.get("type")
 
-    if status.get("type") == "defect":
+    if ticket_type == "defect":
         step = fixer.find(status)
+    elif ticket_type == "simple_feature":
+        step = designer.find(status) or coder.find_simple(status)
     else:
+        # complex_feature
         step = designer.find(status) or planner.find(status) or coder.find(status)
     step = step or result("none", "DONE", "")
 
