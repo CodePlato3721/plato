@@ -33,12 +33,24 @@ available in Claude Code.
 
 ## Quick Start
 
+Run `/plato init` to initialize the project. This creates two folders in
+your project:
+
+- `.plato`: the rule files Plato needs to run
+- `plato-workspace`: the project documentation that Plato and you maintain
+  together — this is an asset that belongs to the project
+
 ```
-/plato init
 /plato HELLO-0001
 ```
 
-That starts your first ticket.
+Answer the questions it asks you, and it gives you back a command that
+starts a Claude Code session. Open a second terminal window (in VS Code,
+open the integrated terminal panel) and paste that command in to run it.
+
+<div align="center">
+  <img src="assets/workspace-demo.png" alt="Workspace demo">
+</div>
 
 Before you use Plato for real, you **must** read the [tutorial](tutorial/01-begin.md).
 
