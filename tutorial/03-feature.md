@@ -1,13 +1,21 @@
 # feature
 
-A feature ticket runs through three roles, in strict order: **designer →
-planner → coder**. Roughly:
+A feature ticket is either **simple** or **complex** — you choose which
+when you create the ticket. Both start the same way, with **designer**,
+then diverge:
+
+- **simple**: designer → **coder**, no planning phase. Coder implements the
+  whole feature in a single session.
+- **complex**: designer → **planner** → **coder**. planner splits the work
+  into `tasks.json`, and coder implements it one task at a time — every
+  task gets a brand-new coder session, run strictly one after another.
+
+Roughly:
 
 - **designer** reads `REQUIREMENT.md` and produces `DESIGN.md`.
-- **planner** reads `DESIGN.md` and produces `tasks.json`.
-- **coder** reads `tasks.json` and implements the tasks. Every task gets a
-  brand-new coder session — tasks are not run in parallel, they run
-  strictly one after another.
+- **planner** *(complex only)* reads `DESIGN.md` and produces `tasks.json`.
+- **coder** implements the work — for **complex**, one task from
+  `tasks.json` at a time; for **simple**, the whole feature in one pass.
 
 `status.json` is what tracks the ticket's progress through all of this. You
 can open it directly at any time to see exactly where the ticket stands.
@@ -49,6 +57,9 @@ the current work and lets you start the step over from scratch.
 
 ## planner
 
+*(complex feature tickets only — simple feature tickets skip straight from
+designer to coder, no planning phase.)*
+
 Once designer has produced `DESIGN.md`, ask the guide session with `/plato
 <ticket-number>`. It gives you the next command to run — something like
 `claude --session-id ...`.
@@ -77,10 +88,15 @@ will:
 
 ## coder
 
-Once planning is done, ask the guide session again: `/plato
-<ticket-number>`. It gives you the command for the **first** task. Take it
-to the working session and run it there — coder implements the task
-interactively and produces a `.cr.md` file when it's done.
+**Complex feature:** once planning is done, ask the guide session again:
+`/plato <ticket-number>`. It gives you the command for the **first** task.
+Take it to the working session and run it there — coder implements the
+task interactively and produces a `.cr.md` file when it's done.
+
+**Simple feature:** once designer is done, ask the guide session: `/plato
+<ticket-number>`. It gives you the command for coder directly — there's no
+planner step in between. Coder implements the whole feature in this one
+session and produces a `.cr.md` file when it's done.
 
 If you exit before it's done, ask the guide session again — `/plato
 <ticket-number>` — and it gives you the command to resume coder.
@@ -101,8 +117,11 @@ do, coder will:
 2. Delete `.cr.md`.
 3. Tell you to `/exit` the agent and commit the code yourself.
 
-Repeat this whole cycle — run task, question, approve — for every task in
-`tasks.json`, until all of them are done.
+**Complex feature:** repeat this whole cycle — run task, question, approve
+— for every task in `tasks.json`, until all of them are done.
+
+**Simple feature:** approving is the last step — the ticket is done as
+soon as this single `.cr.md` is approved.
 
 ---
 

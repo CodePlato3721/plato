@@ -1,6 +1,6 @@
-# Feature Continue Flow
+# Complex Feature Continue Flow
 
-Reached when `status.json`'s `type` field is `feature`.
+Reached when `status.json`'s `type` field is `complex_feature`.
 
 ## Step 1 — Report current status
 
